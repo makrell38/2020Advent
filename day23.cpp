@@ -1,4 +1,4 @@
-//Not yet finished
+//Working for part 1
 #include <string>
 #include <iostream>
 
@@ -60,12 +60,12 @@ int main()
     size++;
     insertCup(8, head);
     insertCup(9, head);
-    insertCup(1, head);
-    insertCup(2, head);
     insertCup(5, head);
     insertCup(4, head);
-    insertCup(6, head);
     insertCup(7, head);
+    insertCup(6, head);
+    insertCup(1, head);
+    insertCup(2, head);
 
     cup** pickUp = new cup*[3];
     for(int i = 0; i < 3; i++){
@@ -94,6 +94,8 @@ int main()
                 pickUp[2] = pickUp[1]->after;
                 temp->after = pickUp[2]->after;
                 pickUp[2]->after->before = temp;
+                if(pickUp[0] == head || pickUp[1] == head || pickUp[2] == head)
+                    head = temp->after;
                 k = 1;
             }
             else
@@ -129,6 +131,7 @@ int main()
         pickUp[0]->before = dest;
 
         temp = head;
+        
         while (temp->val != next->val){
             temp = temp->after;
         }
@@ -137,7 +140,7 @@ int main()
 
         }
         head = temp;
-        
+ 
         cout<<endl<<endl;
 
         loc=(loc+1)%9;
