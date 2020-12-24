@@ -54,6 +54,46 @@ cout<<input<<endl;
                 numBlack++;
                 loc->e = temp;
                 temp->w = loc; 
+                temp->ne = loc->nw;
+                temp->se = loc->sw;
+                if(loc->nw != NULL){
+                    loc->nw->sw = temp;
+                    temp->ne = temp->nw->w;
+                    if(temp->nw->w != NULL){
+                        temp->nw->w->se = temp;
+                        temp->w = temp->nw->sw;
+                        if(temp->ne->sw != NULL){
+                            temp->ne->sw->e = temp;
+                            temp->sw = temp->w->se;
+                            if(temp->w->se != NULL){
+                                temp->w->se->ne = temp;
+                                temp->se = temp->sw->e;
+                                if(temp->sw->e != NULL){
+                                    temp->sw->e->nw = temp;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(loc->sw != NULL){
+                    loc->sw->nw = temp;
+                    temp->se = temp->sw->w;
+                    if(temp->sw->w != NULL){
+                        temp->sw->w->ne = temp;
+                        temp->w = temp->sw->nw;
+                        if(temp->sw->nw != NULL){
+                            temp->sw->nw->e = temp;
+                            temp->nw = temp->w->ne;
+                            if(temp->w->ne != NULL){
+                                temp->w->ne->se = temp;
+                                temp->ne = temp->nw->e;
+                                if(temp->nw->e != NULL){
+                                    temp->nw->e->sw = temp;
+                                }
+                            }
+                        }
+                    }
+                }
             }
             else{
                 if(loc->e->color == white){
@@ -75,6 +115,46 @@ cout<<input<<endl;
                 numBlack++;
                 loc->se = temp;
                 temp->nw = loc; 
+                temp->ne = loc->e;
+                temp->w = loc->sw;
+                if(loc->e != NULL){
+                    loc->e->se = temp;
+                    temp->e = temp->ne->se;
+                    if(temp->ne->se != NULL){
+                        temp->ne->se->w = temp;
+                        temp->se = temp->e->sw;
+                        if(temp->e->sw != NULL){
+                            temp->e->sw->nw = temp;
+                            temp->sw = temp->se->w;
+                            if(temp->se->w != NULL){
+                                temp->se->w->ne = temp;
+                                temp->w = temp->sw->nw;
+                                if(temp->sw->nw != NULL){
+                                    temp->sw->nw->e = temp;
+                                }
+                            }
+                        }
+                    }
+                }
+                if(loc->sw != NULL){
+                    loc->sw->e = temp;
+                    temp->w = temp->ne->sw;
+                    if(temp->ne->sw != NULL){
+                        temp->ne->sw->e = temp;
+                        temp->sw = temp->w->se;
+                        if(temp->w->se != NULL){
+                            temp->w->se->ne = temp;
+                            temp->se = temp->sw->e;
+                            if(temp->sw->e != NULL){
+                                temp->sw->e->nw = temp;
+                                temp->e = temp->se->ne;
+                                if(temp->se->ne != NULL){
+                                    temp->se->ne->w = temp;
+                                }
+                            }
+                        }
+                    }
+                } 
             }
             else{
                 if(loc->se->color == white){
@@ -94,29 +174,48 @@ cout<<input<<endl;
                 tile* temp = new tile();
                 temp->color = black;
                 numBlack++;
-                loc->sw = temp;
+                loc->e = temp;
                 temp->ne = loc; 
                 temp->e = loc->se;
+                temp->nw = loc->w;
                 if(loc->se != NULL){
                     loc->se->w = temp;
-                    temp->se = loc->se->sw;
-                    if(loc->se->sw != NULL){
-                        loc->se->sw->nw = temp;
+                    temp->se = temp->e->sw;
+                    if(temp->e->sw != NULL){
+                        temp->e->sw->nw = temp;
                         temp->sw = temp->se->w;
                         if(temp->se->w != NULL){
-                            temp->se->w->nw = temp;
+                            temp->se->w->ne = temp;
+                            temp->w = temp->sw->nw;
+                            if(temp->sw->nw != NULL){
+                                temp->sw->nw->e = temp;
+                                temp->nw = temp->w->ne;
+                                if(temp->w->ne != NULL){
+                                    temp->w->ne->se = temp;
+                                }
+                            }
                         }
                     }
                 }
-                temp->nw = loc->w;
-                if(loc->w != NULL){
-                    loc->w->se = temp;
-                    temp->w = temp->nw->sw;
-                    if(temp->nw->sw != NULL){
-                        temp->nw->sw->e = temp;
+                if(loc->sw != NULL){//
+                    loc->sw->nw = temp;
+                    temp->se = temp->sw->w;
+                    if(temp->sw->w != NULL){
+                        temp->sw->w->ne = temp;
+                        temp->w = temp->sw->nw;
+                        if(temp->sw->nw != NULL){
+                            temp->sw->nw->e = temp;
+                            temp->nw = temp->w->ne;
+                            if(temp->w->ne != NULL){
+                                temp->w->ne->se = temp;
+                                temp->ne = temp->nw->e;
+                                if(temp->nw->e != NULL){
+                                    temp->nw->e->sw = temp;
+                                }
+                            }
+                        }
                     }
                 }
-                //TODO: finish connecting tiles from other way
                 
             }
             else{
