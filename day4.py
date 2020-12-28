@@ -1,4 +1,4 @@
-file = open("test.txt", 'r')
+file = open("input.txt", 'r')
 check = True
 count = 0
 while check:
@@ -15,9 +15,7 @@ while check:
                 nlines = nlines + 1
             else:
                 pp = pp + line
-        #if pp.find("byr") == 1 and pp.find("iyr") == 1 and pp.find("eyr") == 1 and pp.find("hgt") == 1 and pp.find("hcl") == 1 and pp.find("ecl") == 1 and pp.find("pid") == 1:
-        #not working here
-        if not pp.find('hgt'):
+        if pp.find("byr") != -1 and pp.find("iyr") != -1 and pp.find("eyr") != -1 and pp.find("hgt") != -1 and pp.find("hcl") != -1 and pp.find("ecl") != -1 and pp.find("pid") != -1:
             count = count + 1
 print(count)
 
