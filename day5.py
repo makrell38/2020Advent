@@ -1,6 +1,7 @@
 file = open("input.txt", 'r')
 row = [0,127]
 col = [0,7]
+list = []
 max = 0
 line = file.readline()
 while line and line != '\n':
@@ -27,9 +28,16 @@ while line and line != '\n':
     val = r*8 + c
     if val > max:
         max = val
+    list.append(val)
     line = file.readline()
 
-print(max)
+#for part 1
+#print(max)
+
+list.sort()
+for x in range(0,len(list)-1):
+    if list[x+1] == list[x] +2:
+        print(list[x]+1)
 
 file.close()
 
